@@ -6,12 +6,12 @@ using namespace std;
 class Game
 {
 public:
-	Game();
 	//Constructor sets theURL and theName to a user input
-	string getURL();
+	Game();
 	//Returns the URL stored in theURL
-	string getName();
+	string getURL();
 	//Returns the name stored in theName
+	string getName();
 private:
 	string theURL;
 	string theName;
@@ -20,14 +20,14 @@ private:
 class storedGames
 {
 public:
+	//Constructor prompts the user to add games to the object
 	storedGames();
-	//Prompts the user to add games to the class
-	void getFinalOutput();
 	//Outputs the stored games in the final format to be pasted elsewhere
-	void printList(Game *storeType, int size, string storeName);
+	void getFinalOutput();
 	//Outputs a list of the free games from a single store
-	Game* addGame(int &size, string storeName);
+	void printList(Game *storeType, int size, string storeName);
 	//Sets the size of an array storing the free games from a single store and returns a pointer to that array
+	Game* addGame(int &size, string storeName);
 private:
 	Game *SteamGames = nullptr;
 	Game *EpicGames = nullptr;
@@ -44,8 +44,8 @@ private:
 };
 
 
-bool ContinueCheck();
 //Returns true or false depending on the user's response to a prompt asking if games from another store will be added
+bool ContinueCheck();
 
 
 int main()
@@ -137,16 +137,17 @@ storedGames::storedGames()
 
 Game* storedGames::addGame(int &size, string storeName)
 {
-	cout << "How many " << storeName << " games would you like to store? ";
+	cout << "How many games from " << storeName << " would you like to add? ";
 	cin >> size;
-	cin.ignore(5, '\n');
+	cin.ignore(1000, '\n');
 
 	return new Game[size];
 }
 
 void storedGames::getFinalOutput()
 {
-	cout << "Here are your free games:\n";
+	cout << "Here is your formatted announcement:\n";
+
 	printList(SteamGames, steamGameCount, "Steam");
 	printList(EpicGames, epicGameCount, "Epic");
 	printList(gogGames, gogGameCount, "gog");
